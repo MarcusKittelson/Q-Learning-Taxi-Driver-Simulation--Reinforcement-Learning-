@@ -15,18 +15,14 @@ def qlearn(gamma=0.95):
     
     Returns:
     - Q: The learned Q-table.
-    - rewards: List of rewards collected during training for each episode.
     """
     # Initialize the Q-table with zeros.
     Q = np.zeros((env.observation_space.n, env.action_space.n))
-
-    rewards = []                # Store rewards for each episode
     num_episodes = 1000         # Number of episodes for trainin
     
     # Training loop
     for i in range(num_episodes):
         done = False
-        episode_reward = 0
         tuple_state = env.reset()
         state = tuple_state[0]
 
@@ -43,18 +39,16 @@ def qlearn(gamma=0.95):
 
             # Update the Q-value based on the received reward and the highest Q-value of next state
             Q[state,action] = reward + gamma * np.max(Q[next_state])
-            episode_reward += reward
             state = next_state
 
-    return Q, rewards
+    return Q
 
-Q, rewards = qlearn()
+Q = qlearn()
 
 # Creating a new environment instance to visualize the agent's performance using the learned Q-values
 env_human = gym.make('Taxi-v3', render_mode = 'human')
 
 print("\nVisualizing the learned Q-values in action:")
-time.sleep(2)
 
 tuple_state = env_human.reset()
 state = tuple_state[0]
