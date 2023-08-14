@@ -5,7 +5,6 @@ import numpy as np
 # Initialize the Taxi-v3 environment.
 env = gym.make('Taxi-v3')               
 
-
 def qlearn(gamma=0.95):
     """
     Train a Q-learning agent on the Taxi-v3 environment.
